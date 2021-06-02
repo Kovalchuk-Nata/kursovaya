@@ -73,12 +73,6 @@ namespace kursovaya.Controllers
             return result;
         }
 
-        //[HttpGet]
-        //public async Task<IEnumerable<RecipeFromDB>> Get(string Title = "croissans")
-        //{
-        //    return await _dynamoDBClient.  QueryAsync<RecipeFromDB>(Title).GetRemainingAsync();
-        //}
-
         [HttpGet("RandomCocktail")]
         public async Task<RandomCocktail> GetRandomCocktail([FromQuery] int offset)
         {
@@ -86,6 +80,20 @@ namespace kursovaya.Controllers
 
             return recipe;
         }
+
+        [HttpGet("RandomCocktails")]
+        public async Task<RandomCocktails> GetRandomCocktails()
+        {
+            var recipe = await _recipeClient.GetRandomCocktails();
+
+            return recipe;
+        }
+
+        //[HttpGet]
+        //public async Task<IEnumerable<RecipeFromDB>> Get(string Title = "croissans")
+        //{
+        //    return await _dynamoDBClient.  QueryAsync<RecipeFromDB>(Title).GetRemainingAsync();
+        //}
 
         /* public async Task<GetItemResponse> GetRecipeFromDB()
          {
