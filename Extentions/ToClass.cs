@@ -21,10 +21,10 @@ namespace kursovaya.Extentions
                     {
                         property.SetValue(obj, kv.Value.S);
                     }
-                    else if (!string.IsNullOrEmpty(kv.Value.N))
-                    {
-                        property.SetValue(obj, kv.Value.N);
-                    }
+                    //else if (!string.IsNullOrEmpty(kv.Value.N))
+                    //{
+                    //    property.SetValue(obj, kv.Value.N);
+                    //}
                 }
             }
             return (T)obj;
