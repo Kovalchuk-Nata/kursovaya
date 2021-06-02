@@ -32,39 +32,30 @@ namespace kursovaya.Controllers
             _recipeClient = recipeClients;
             _dynamoDBClient = dynamoDBClient;
         }
+        
 
+         
         [HttpGet("Random")]
         public async Task<RandomRecipe> GetRandomRecipe()
         {
-            var recipe = await _recipeClient.GetRandonRecipe();
+            var recipe = await _recipeClient.GetRandomRecipe();
 
             return recipe;
         }
 
         [HttpGet("ByName")]
-        public async Task<RecipeByName> GetRecipeByName([FromQuery] RecipeByName param)
+        public async Task<RecipeByName> GetRecipeByName([FromQuery] string title)
         {
-            var recipebyname = await _recipeClient.GetRecipeByName(param.Results.FirstOrDefault().ToString());
-
-            var result = new RecipeByName
-            {
-                //Title = recipebyname.Results[0].Title,
-                //ReadyInMinutes = recipebyname.Results[0].ReadyInMinutes.ToString(),
-                Results = recipebyname.Results,
-                //FeelsLike = weather.Main.Feels_like.ToString(),
-                //Description = weather.Weather.FirstOrDefault().Description
-            };
-
+            var recipebyname = await _recipeClient.GetRecipeByName(title);
             return recipebyname;
         }
 
-        //[HttpGet("HealthyFood")]
-        //public async Task<HealthyFood> GetHealthyFood()
-        //{
-        //    var healthyrecipe = await _recipeClient.GetHealthyFood();
-
-        //    return healthyrecipe;
-        //}
+        [HttpGet("ByIngredient")]
+        public async Task<RecipeByIngredient> GetRecipeByIngredient([FromQuery] string ingredient)
+        {
+            var recipebyingr = await _recipeClient.GetRecipeByIngredient(ingredient);
+            return recipebyingr;
+        }
 
         [HttpGet("GetRecipeFromDB")]
         public async Task<RecipeFromDB> GetRecipeFromDB([FromQuery] string title)
@@ -81,6 +72,21 @@ namespace kursovaya.Controllers
             };
             return result;
         }
+
+        //[HttpGet]
+        //public async Task<IEnumerable<RecipeFromDB>> Get(string Title = "croissans")
+        //{
+        //    return await _dynamoDBClient.  QueryAsync<RecipeFromDB>(Title).GetRemainingAsync();
+        //}
+
+        [HttpGet("RandomCocktail")]
+        public async Task<RandomCocktail> GetRandomCocktail([FromQuery] int offset)
+        {
+            var recipe = await _recipeClient.GetRandomCocktail(offset);
+
+            return recipe;
+        }
+
         /* public async Task<GetItemResponse> GetRecipeFromDB()
          {
              var tablename = "recipes";
