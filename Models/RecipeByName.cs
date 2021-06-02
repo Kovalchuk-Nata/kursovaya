@@ -24,8 +24,8 @@ namespace kursovaya.Models
 
     public class Result
     {
-        public List<ExtendedIngredients> ExtendedIngredients { get; set; }
         public string Title { get; set; }
+        public List<ExtendedIngredients> ExtendedIngredients { get; set; }
         public int ReadyInMinutes { get; set; }
         public int Servings { get; set; }
         public string Image { get; set; }
@@ -34,8 +34,7 @@ namespace kursovaya.Models
 
     public class RecipeByName
     {
-        //public List<Result> Results { get; set; }
-        public Result[] Results { get; set; }
+        public List<Result> Results { get; set; }
         public string Title { get; internal set; }
         public string ReadyInMinutes { get; internal set; }
     }
