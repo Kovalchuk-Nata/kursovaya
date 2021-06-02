@@ -12,5 +12,6 @@ namespace kursovaya
         public static string a_key = "AKIATKZNSKLMYVY6O22N"; //access key for dinamoDB
         public static string s_key = "I3MDRZx7gqENpQTGq3PivvbLyge6m5s9Kwg9cG9K"; //secret key for dinamoDB
         public static string tableName = "recipes"; 
+
     }
 }
