@@ -75,5 +75,14 @@ namespace kursovaya.Clients
             return result;
         }
 
+        public async Task<RandomCocktails> GetRandomCocktails()
+        {
+            var response = await client.GetAsync($"/recipes/random?apiKey={Const.apiKey}&number=1&tags=cocktail");
+            response.EnsureSuccessStatusCode();
+            var content = response.Content.ReadAsStringAsync().Result;
+
+            var result = JsonConvert.DeserializeObject<RandomCocktails>(content);
+            return result;
+        }
     }
 }
