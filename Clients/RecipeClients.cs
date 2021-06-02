@@ -25,9 +25,9 @@ namespace kursovaya.Clients
         }
 
 
-        public async Task<RandomRecipe> GetRandonRecipe()
+        public async Task<RandomRecipe> GetRandomRecipe()
         {
-            var response = await client.GetAsync("/recipes/random?apiKey=1686191358ed4208988e2f8fd63fd3ba&number=1");
+            var response = await client.GetAsync($"/recipes/random?apiKey={Const.apiKey}&number=1");
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().Result;
 
@@ -43,11 +43,21 @@ namespace kursovaya.Clients
 
             var result = JsonConvert.DeserializeObject<RecipeByName>(content);
             return result;
-        }
-       
-        public async Task<RecipeFromDB> GetHealthyFood()
+        }      
+
+        public async Task<RecipeByIngredient> GetRecipeByIngredient(string ingredient)
         {
-            var response = await client.GetAsync($"/recipes/complexSearch?query=pasta&number=2&apiKey={Const.apiKey}&addRecipeInformation=true&fillIngredients=true");
+            var response = await client.GetAsync($"recipes/complexSearch?includeIngredients={ingredient}&apiKey={Const.apiKey}&addRecipeInformation=true&number=1&fillIngredients=true");
+            response.EnsureSuccessStatusCode();
+            var content = response.Content.ReadAsStringAsync().Result;
+
+            var result = JsonConvert.DeserializeObject<RecipeByIngredient>(content);
+            return result;
+        }
+
+        public async Task<RecipeFromDB> GetHealthyFood(string ingredient)
+        {
+            var response = await client.GetAsync($"recipes/complexSearch?includeIngredients={ingredient}&apiKey={Const.apiKey}&addRecipeInformation=true&fillIngredients=true&number=2");
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().Result;
 
@@ -55,6 +65,15 @@ namespace kursovaya.Clients
             return result;
         }
 
+        public async Task<RandomCocktail> GetRandomCocktail(int offset)
+        {
+            var response = await client.GetAsync($"recipes/complexSearch?query=cocktail&apiKey={Const.apiKey}&number=1&addRecipeInformation=true&fillIngredients=true&offset={offset}");///recipes/random?apiKey={Const.apiKey}&number=1&tags=cocktails");
+            response.EnsureSuccessStatusCode();
+            var content = response.Content.ReadAsStringAsync().Result;
+
+            var result = JsonConvert.DeserializeObject<RandomCocktail>(content);
+            return result;
+        }
 
     }
 }
